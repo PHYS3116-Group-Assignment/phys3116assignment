@@ -27,3 +27,4 @@ Topic: plan and csv conversion code discussion
 Steven absent
 Notes: looked over plan for finding age and other variables in identifying accreted globular clusters, looked over FeH vs age plots
 Future actions: read literature to determine more defined method of identifying accreted globular cluster + validate current approach regarding using age and FeH vs age plots to determine accreted GCs , define how various properties can indicate age via flowchart
+Also potentially investigate panda repository for future ease of .csv data access
