@@ -1,6 +1,7 @@
 import csv
 import numpy as np
-from  pathlib import Path
+from pathlib import Path
+
 
 script_dir = Path(__file__).parent.absolute()
 file_path = script_dir / 'HarrisPartI.csv'
@@ -56,7 +57,5 @@ with open(file_path, newline='') as HPi_data:
 
 
                         
-
-
-                        
+           
                 
