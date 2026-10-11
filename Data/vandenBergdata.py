@@ -45,10 +45,15 @@ with open(file_path, newline='') as vb_data:
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
 plt.scatter(Age_vb, FeH_vb, color='red', label='Data')
-plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("Age (Gyr)")
 plt.ylabel("[Fe/H]")
 plt.legend()
 plt.grid(True)
 plt.show()
 # %%
+""" plt.figure()
+plt.scatter(, FeH_vb, color='red', label='Data')
+plt.show() """
+
+

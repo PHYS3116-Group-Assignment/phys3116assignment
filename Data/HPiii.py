@@ -6,6 +6,7 @@
 import csv
 import numpy as np
 from  pathlib import Path
+import xlrd
 
 script_dir = Path(__file__).parent.absolute()
 file_path = script_dir / 'HarrisPartIII.csv'

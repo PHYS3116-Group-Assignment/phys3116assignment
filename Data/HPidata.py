@@ -1,6 +1,7 @@
 import csv
 import numpy as np
 from pathlib import Path
+import matplotlib.pyplot as plt
 
 
 script_dir = Path(__file__).parent.absolute()
@@ -56,6 +57,11 @@ with open(file_path, newline='') as HPi_data:
 
 
 
-                        
+        plt.figure()
+        plt.scatter(x_HPi, y_HPi, color='red', label='Data')
+        plt.show()
+
+
+                   
            
                 
