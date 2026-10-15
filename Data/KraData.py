@@ -10,22 +10,22 @@ file_path = script_dir / 'Krause21.csv'
 with open(file_path, newline='') as Kra_data:
         globclusters = csv.DictReader(Kra_data)
 
-        ##Class_Kra = []
-        ##Object_Kra = []
-        ##AltName_Kra = []
-        ##Mstar_Kra = []
-        ##rh_Kra = []
-        ##C5_Kra = []
+        Class_Kra = []
+        Object_Kra = []
+        AltName_Kra = []
+        Mstar_Kra = []
+        rh_Kra = []
+        C5_Kra = []
         Age_Kra = []
         FeH_Kra = []
 
         for row in globclusters:
-                ##Class_Kra.append(row['Class'])
-                ##Object_Kra.append(row['Object'])
-                ##AltName_Kra.append(row['AltName'])
-                ##Mstar_Kra.append(float(row['Mstar']))
-                ##rh_Kra.append(float(row['rh']))
-                ##C5_Kra.append(float(row['C5']))
+                Class_Kra.append(row['Class'])
+                Object_Kra.append(row['Object'])
+                AltName_Kra.append(row['AltName'])
+                Mstar_Kra.append(float(row['Mstar']))
+                rh_Kra.append(float(row['rh']))
+                C5_Kra.append(float(row['C5']))
                 Age_Kra.append(float(row['Age']))
                 FeH_Kra.append(float(row['FeH']))
 

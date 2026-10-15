@@ -42,3 +42,11 @@ with open(file_path, newline='') as HPiii_data:
         lg_tc_HPiii.append(to_float(row['lg_tc']))
         lg_th_HPiii.append(to_float(row['lg_th']))
 
+for a in v_r_HPiii and v_LSR_HPiii and sig_v_HPiii:
+     if a  == np.nan:
+         id_HPiii[a]='Uncategorised'
+
+
+
+print(id_HPiii)
+

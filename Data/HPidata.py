@@ -57,8 +57,10 @@ with open(file_path, newline='') as HPi_data:
 
 
 
-        plt.figure()
-        plt.scatter(x_HPi, y_HPi, color='red', label='Data')
+        fig = plt.figure()
+        ax = fig.add_subplot(projection='3d')
+        # unit is kpc
+        ax.scatter(x_HPi, y_HPi, z_HPi, color='red', label='Data')
         plt.show()
 
 
