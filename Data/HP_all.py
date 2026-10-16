@@ -1,0 +1,117 @@
+import csv
+import numpy as np
+from pathlib import Path
+import matplotlib.pyplot as plt
+
+
+script_dir = Path(__file__).parent.absolute()
+file_path = script_dir / 'HarrisPartI.csv'
+
+with open(file_path, newline='') as HPi_data:
+        globclusters = csv.DictReader(HPi_data)
+
+
+        id_HPi = []
+        name_HPi = []
+        ra_HPi = []
+        ra_h_HPi = []
+        ra_min_HPi = []
+        ra_sec_HPi = []
+        decl_HPi = []
+        decl_deg_HPi = []
+        decl_min_HPi = []
+        decl_sec_HPi = []
+        long_HPi = []
+        lat_HPi = []
+        r_sun_HPi = []
+        r_gc_HPi = []
+        x_HPi = []
+        y_HPi = []
+        z_HPi = []
+
+        for row in globclusters:
+                id_HPi.append(row['ID'])
+                name_HPi.append(row['Name'])
+                ra_HPi.append((row['RA']))
+                decl_HPi.append(row['DEC'])
+                long_HPi.append(float(row['L']))
+                lat_HPi.append(float(row['B']))
+                r_sun_HPi.append(float(row['R_Sun']))
+                r_gc_HPi.append(float(row['R_gc']))
+                x_HPi.append(float(row['X']))
+                y_HPi.append(float(row['Y']))
+                z_HPi.append(float(row['Z']))
+
+        for value in ra_HPi:
+                ra_h_HPi.append(float((value[0]+(value[1]))))
+                ra_min_HPi.append(float((value[3]+(value[4]))))
+                ra_sec_HPi.append(float((value[6]+(value[7]))))
+
+        for value2 in decl_HPi:
+                if value2[0] == '+':
+                    decl_deg_HPi.append(float(value2[1]+value2[2]))
+                elif value2[0] == '-':
+                    decl_deg_HPi.append(-1*float(value2[1]+value2[2]))
+                decl_min_HPi.append(float(value2[4]+value2[5]))
+                decl_sec_HPi.append(float(value2[7]+value2[8]))
+
+script_dir = Path(__file__).parent.absolute()
+file_path = script_dir / 'HarrisPartIII.csv'
+
+with open(file_path, newline='') as HPiii_data:
+    globclusters= csv.DictReader(HPiii_data)
+
+    id_HPiii = []
+    v_r_HPiii = []
+    v_r_err_HPiii = []
+    v_LSR_HPiii = []
+    sig_v_HPiii = []
+    sig_v_err_HPiii = []
+    c_HPiii = []
+    r_c_HPiii = []
+    r_h_HPiii = []
+    mu_V_HPiii = []
+    rho_0_HPiii = []
+    lg_tc_HPiii = []
+    lg_th_HPiii = []
+
+    def to_float(value):
+        value = value.strip()  # Remove leading/trailing whitespace
+        return np.nan if value in ('NA', '') else float(value)
+
+    for row in globclusters:
+        id_HPiii.append(row['ID'])
+        v_r_HPiii.append(to_float(row['v_r']))
+        v_r_err_HPiii.append(to_float(row['v_r_e']))
+        v_LSR_HPiii.append(to_float(row['v_LSR']))
+        sig_v_HPiii.append(to_float(row['sig_v']))
+        sig_v_err_HPiii.append(to_float(row['sig_v_e']))
+        c_HPiii.append(to_float(row['c']))
+        r_c_HPiii.append(to_float(row['r_c']))
+        r_h_HPiii.append(to_float(row['r_h']))
+        mu_V_HPiii.append(to_float(row['mu_V']))
+        rho_0_HPiii.append(to_float(row['rho_0']))
+        lg_tc_HPiii.append(to_float(row['lg_tc']))
+        lg_th_HPiii.append(to_float(row['lg_th']))
+
+#%%
+plt.figure()
+plt.title("VB Age Vs [Fe/H]")
+plt.scatter(FeH_vb, Age_vb, color='red', label='Data')
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+plt.xlabel("Age (Gyr)")
+plt.ylabel("[Fe/H]")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+#%%
+plt.figure()
+plt.title("VB Age Vs [Fe/H]")
+plt.scatter(r_gc_HPi, , color='red', label='Data')
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+# plt.xlabel("Age (Gyr)")
+# plt.ylabel("[Fe/H]")
+plt.legend()
+plt.grid(True)
+plt.show()

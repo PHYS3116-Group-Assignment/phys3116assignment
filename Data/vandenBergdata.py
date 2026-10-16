@@ -51,5 +51,19 @@ plt.ylabel("[Fe/H]")
 plt.legend()
 plt.grid(True)
 plt.show()
+#might be worth using this to just qualitatively describe trends and whatnot
+# as done in Forbes et al
 # %%
 
+#putting age on x axis to match bifurcated amr of milky way (Leaman et al) paper (which appears to reflect/pull influence relatively well from paper in assignment brief vandenberg)
+plt.figure()
+plt.title("VB Age Vs [Fe/H]")
+plt.scatter(FeH_vb, Age_vb, color='red', label='Data')
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+plt.xlabel("Age (Gyr)")
+plt.ylabel("[Fe/H]")
+plt.legend()
+plt.grid(True)
+plt.show()
+# very similar shape/relation as well as axes to Leaman et al Fig 2
+# %%
