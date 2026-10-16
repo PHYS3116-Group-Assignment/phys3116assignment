@@ -1,3 +1,4 @@
+#%%
 import csv
 import numpy as np
 from pathlib import Path
@@ -17,10 +18,12 @@ with open(file_path, newline='') as HPi_data:
         ra_h_HPi = []
         ra_min_HPi = []
         ra_sec_HPi = []
+        ra_deg_HPi = []
         decl_HPi = []
         decl_deg_HPi = []
         decl_min_HPi = []
         decl_sec_HPi = []
+        decl_dec_deg_HPi = []
         long_HPi = []
         lat_HPi = []
         r_sun_HPi = []
@@ -94,24 +97,51 @@ with open(file_path, newline='') as HPiii_data:
         lg_tc_HPiii.append(to_float(row['lg_tc']))
         lg_th_HPiii.append(to_float(row['lg_th']))
 
-#%%
-plt.figure()
-plt.title("VB Age Vs [Fe/H]")
-plt.scatter(FeH_vb, Age_vb, color='red', label='Data')
-##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
-plt.xlabel("Age (Gyr)")
-plt.ylabel("[Fe/H]")
-plt.legend()
-plt.grid(True)
-plt.show()
+
+for num1 in range(len(ra_HPi)):
+      ra_deg = ra_h_HPi[num1] + ra_min_HPi[num1]/60 + ra_sec_HPi[num1]/3600
+      ra_deg_HPi.append(ra_deg)
+
+      decl_deg = decl_deg_HPi[num1] + decl_min_HPi[num1]/60 + decl_sec_HPi[num1]/3600
+      decl_dec_deg_HPi.append(decl_deg)
 
 #%%
-plt.figure()
-plt.title("VB Age Vs [Fe/H]")
-plt.scatter(r_gc_HPi, , color='red', label='Data')
-##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
-# plt.xlabel("Age (Gyr)")
-# plt.ylabel("[Fe/H]")
-plt.legend()
-plt.grid(True)
-plt.show()
+#converting heliocentric velocity to galactocentric
+import numpy as np
+import astropy as ast
+import astropy.coordinates as coord
+from astropy import units as u
+from astropy.coordinates import SkyCoord
+
+c_1 = []
+gc_1 = []
+
+for num2 in range(len(v_r_HPiii)):
+      c1 = coord.SkyCoord(
+        ra= ra_deg_HPi[num2] * u.degree,
+        dec= decl_dec_deg_HPi[num2] * u.degree,
+        distance=(r_gc_HPi[num2] * u.mas).to(u.pc, u.parallax()),
+#       x=x_HPi[num2], y=y_HPi[num2], z=z_HPi[num2], unit='kpc', representation_type='cartesian',
+#       radial_velocity= v_r_HPiii[num2] * (u.km / u.s),
+        frame="icrs",)
+      
+      c_1.append(c1)
+
+for num3 in c_1:
+      gc1 = num3.transform_to(coord.Galactocentric)
+      gc_1.append(gc1)
+
+print(gc_1[0].v_x)
+
+
+
+#%%
+# plt.figure()
+# plt.title("VB Age Vs [Fe/H]")
+# plt.scatter(r_gc_HPi, , color='red', label='Data')
+# ##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+# # plt.xlabel("Age (Gyr)")
+# # plt.ylabel("[Fe/H]")
+# plt.legend()
+# plt.grid(True)
+# plt.show()
