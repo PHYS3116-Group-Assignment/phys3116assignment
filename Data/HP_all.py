@@ -3,7 +3,8 @@ import csv
 import numpy as np
 from pathlib import Path
 import matplotlib.pyplot as plt
-
+from scipy import stats
+from scipy.optimize import curve_fit
 
 script_dir = Path(__file__).parent.absolute()
 file_path = script_dir / 'HarrisPartI.csv'
@@ -158,12 +159,9 @@ plt.show()
 #%%
 #cross reference with position in galaxy?
 
-
-
-
 #%%
 
-#3d plot 
+#3d plot of postion of globular clusters in galactic coordinates
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(x_HPi, y_HPi, z_HPi, c='red', cmap='viridis')
@@ -173,6 +171,51 @@ ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
 plt.show()
 
+#%%
+
+for i, v in enumerate(v_LSR_HPiii):
+    if np.isnan(v):
+        print(i, id_HPiii[i], name_HPi[i])
+
+x = np.array(long_HPi)
+y = np.array(v_LSR_HPiii)
+
+mask = np.isfinite(x) & np.isfinite(y)
+
+x_fit = x[mask]
+y_fit = y[mask]
+
+## sin regression analysis
+result = stats.linregress(x_fit, y_fit)
+
+r_squared = result.rvalue ** 2
+
+def sin_func(l, A, C):
+    return A*np.sin(np.radians(l)) + C 
+
+popt, pcov = curve_fit(sin_func, x_fit, y_fit)
+
+amplitude, offset = popt
+amplitude_err, offset_err = np.sqrt(np.diag(pcov))
+
+print(f"Amplitude: {amplitude:.4f} ± {amplitude_err:.4f}")
+print(f"Offset: {offset:.4f} ± {offset_err:.4f}")
+
+
+l = np.linspace(0, 360, 100)  # Range of Galactic longitudes for plotting the sine curve
+
+#loong vs vgsr plot
+plt.figure()
+plt.title("Galactic Longitude vs Velocity")
+plt.scatter(x=x_fit, y=y_fit, c='red', label='Data', s = 5)
+plt.plot(l, sin_func(l, *popt), color='blue', label=f'Sine Fit: {amplitude:.2f} * sin(l) + {offset:.2f}')
+# plt.colorbar(orientation = "vertical")
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+plt.xlabel("Galactic Longitude")
+plt.ylabel("Velocity (km/s)")
+plt.legend()
+plt.grid(True)
+plt.show()
 
 
 #REDUNDANT
