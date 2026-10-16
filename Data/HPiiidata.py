@@ -48,6 +48,7 @@ for a in v_r_HPiii and v_LSR_HPiii and sig_v_HPiii:
      if a == np.nan:
          print("YES")
 
-
-
+print(len(id_HPiii))
+progenitor_mass_1 = [1,2,3,4,5,6,7]
+progenitor_mass_2 = [7,8,9,10,11]
 
