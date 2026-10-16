@@ -166,7 +166,7 @@ plt.show()
 #3d plot 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.scatter(x_HPi, y_HPi, z_HPi, c=z_HPi, cmap='viridis')
+ax.scatter(x_HPi, y_HPi, z_HPi, c='red', cmap='viridis')
 ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
