@@ -119,27 +119,31 @@ for num2 in range(len(id_HPiii)):
       radial_velocity=v_r_HPiii[num2] * u.km / u.s,
       frame="icrs",)
       icrs1.append(icrs)
-
-
-
-for num3 in range(len(icrs1)):
       v_sun = coord.Galactocentric().galcen_v_sun.to_cartesian()
-      gal = icrs1[num3].transform_to(coord.Galactic)
+      gal = icrs1[num2].transform_to(coord.Galactic)
       cart_data = gal.data.to_cartesian()
-#       unit_vector = cart_data[num3] / cart_data.norm()
-#       v_proj = v_sun.dot(unit_vector[num3])
+      unit_vector = cart_data / cart_data.norm()
+      v_proj = v_sun.dot(unit_vector)
+      rv_gsr0 = (icrs.radial_velocity + v_proj)
+      rv_gsr = rv_gsr0.value
+      vgsr.append(rv_gsr)
 
+print((vgsr[0]))
 
+#%%
 
-print(vgsr)
+plt.figure()
+plt.title("Radius against Galactocentric velocity")
+plt.scatter(r_gc_HPi, vgsr, color='red', label='Data')
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+# plt.xlabel("Age (Gyr)")
+# plt.ylabel("[Fe/H]")
+plt.legend()
+plt.grid(True)
+plt.show()
 
-
-
-
-
-
-
-
+#%%
+#cross reference with position in galaxy?
 
 
 
@@ -149,6 +153,7 @@ print(vgsr)
 
 
 
+#REDUNDANT
 #converting heliocentric velocity to galactocentric
 # import numpy as np
 # import astropy as ast
@@ -179,12 +184,3 @@ print(vgsr)
 
 
 #%%
-# plt.figure()
-# plt.title("VB Age Vs [Fe/H]")
-# plt.scatter(r_gc_HPi, , color='red', label='Data')
-# ##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
-# # plt.xlabel("Age (Gyr)")
-# # plt.ylabel("[Fe/H]")
-# plt.legend()
-# plt.grid(True)
-# plt.show()
