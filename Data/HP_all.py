@@ -65,6 +65,7 @@ with open(file_path, newline='') as HPiii_data:
     globclusters= csv.DictReader(HPiii_data)
 
     id_HPiii = []
+    category = []
     v_r_HPiii = []
     v_r_err_HPiii = []
     v_LSR_HPiii = []
@@ -104,6 +105,17 @@ for num1 in range(len(ra_HPi)):
       decl_deg = decl_deg_HPi[num1] + decl_min_HPi[num1]/60 + decl_sec_HPi[num1]/3600
       decl_dec_deg_HPi.append(decl_deg)
 
+# for num0 in range(len(id_HPiii)):
+#       if v_r_HPiii[num0] == 0 and v_LSR_HPiii[num0] == 0 and sig_v_HPiii[num0] == 0:
+#                         category.append("Undefined")
+#       else:
+#             category.append("GC")
+
+# print(category)
+# print(id_HPi)
+# print(type(v_LSR_HPiii[16]))
+
+
 #%%
 
 from astropy import units as u
@@ -134,8 +146,8 @@ print((vgsr[0]))
 
 plt.figure()
 plt.title("Radius against Galactocentric velocity")
-plt.scatter(x=r_gc_HPi, y=vgsr, c=sig_v_HPiii, color='red', label='Data')
-plt.colorbar(orientation = "horizontal")
+plt.scatter(x=r_gc_HPi, y=vgsr, c='red', label='Data', s = 5)
+# plt.colorbar(orientation = "vertical")
 ##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("R (kpc)")
 plt.ylabel("Galactocentric Velocity")
