@@ -134,7 +134,7 @@ print((vgsr[0]))
 
 plt.figure()
 plt.title("Radius against Galactocentric velocity")
-plt.scatter(x=r_gc_HPi, y=vgsr, c=sig_v_HPiii, color='red', label='Data')
+plt.scatter(x=r_gc_HPi, y=vgsr, c=sig_v_HPiii, label='Data') # Clashed with the colorbar
 plt.colorbar(orientation = "horizontal")
 ##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("R (kpc)")
