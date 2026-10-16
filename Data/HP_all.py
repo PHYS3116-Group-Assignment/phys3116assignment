@@ -173,10 +173,6 @@ plt.show()
 
 #%%
 
-for i, v in enumerate(v_LSR_HPiii):
-    if np.isnan(v):
-        print(i, id_HPiii[i], name_HPi[i])
-
 x = np.array(long_HPi)
 y = np.array(v_LSR_HPiii)
 
