@@ -101,37 +101,80 @@ with open(file_path, newline='') as HPiii_data:
 for num1 in range(len(ra_HPi)):
       ra_deg = ra_h_HPi[num1] + ra_min_HPi[num1]/60 + ra_sec_HPi[num1]/3600
       ra_deg_HPi.append(ra_deg)
-
       decl_deg = decl_deg_HPi[num1] + decl_min_HPi[num1]/60 + decl_sec_HPi[num1]/3600
       decl_dec_deg_HPi.append(decl_deg)
 
 #%%
-#converting heliocentric velocity to galactocentric
-import numpy as np
-import astropy as ast
-import astropy.coordinates as coord
+
 from astropy import units as u
-from astropy.coordinates import SkyCoord
+import astropy.coordinates as coord
 
-c_1 = []
-gc_1 = []
+icrs1 = []
+vgsr = []
 
-for num2 in range(len(v_r_HPiii)):
-      c1 = coord.SkyCoord(
-        ra= ra_deg_HPi[num2] * u.degree,
-        dec= decl_dec_deg_HPi[num2] * u.degree,
-        distance=(r_gc_HPi[num2] * u.mas).to(u.pc, u.parallax()),
-#       x=x_HPi[num2], y=y_HPi[num2], z=z_HPi[num2], unit='kpc', representation_type='cartesian',
-#       radial_velocity= v_r_HPiii[num2] * (u.km / u.s),
-        frame="icrs",)
+for num2 in range(len(id_HPiii)):
+      icrs = coord.SkyCoord(
+      ra= ra_deg_HPi[num2] * u.deg,
+      dec=decl_dec_deg_HPi[num2] * u.deg,
+      radial_velocity=v_r_HPiii[num2] * u.km / u.s,
+      frame="icrs",)
+      icrs1.append(icrs)
+
+
+
+for num3 in range(len(icrs1)):
+      v_sun = coord.Galactocentric().galcen_v_sun.to_cartesian()
+      gal = icrs1[num3].transform_to(coord.Galactic)
+      cart_data = gal.data.to_cartesian()
+#       unit_vector = cart_data[num3] / cart_data.norm()
+#       v_proj = v_sun.dot(unit_vector[num3])
+
+
+
+print(vgsr)
+
+
+
+
+
+
+
+
+
+
+
+
+#%%
+
+
+
+
+#converting heliocentric velocity to galactocentric
+# import numpy as np
+# import astropy as ast
+# import astropy.coordinates as coord
+# from astropy import units as u
+# from astropy.coordinates import SkyCoord
+
+# c_1 = []
+# gc_1 = []
+
+# for num2 in range(len(v_r_HPiii)):
+#       c1 = coord.SkyCoord(
+#         ra= ra_deg_HPi[num2] * u.degree,
+#         dec= decl_dec_deg_HPi[num2] * u.degree,
+#         distance=(r_gc_HPi[num2] * u.mas).to(u.pc, u.parallax()),
+# #       x=x_HPi[num2], y=y_HPi[num2], z=z_HPi[num2], unit='kpc', representation_type='cartesian',
+# #       radial_velocity= v_r_HPiii[num2] * (u.km / u.s),
+#         frame="icrs",)
       
-      c_1.append(c1)
+#       c_1.append(c1)
 
-for num3 in c_1:
-      gc1 = num3.transform_to(coord.Galactocentric)
-      gc_1.append(gc1)
+# for num3 in c_1:
+#       gc1 = num3.transform_to(coord.Galactocentric)
+#       gc_1.append(gc1)
 
-print(gc_1[0].v_x)
+# print(gc_1[0].v_x)
 
 
 
