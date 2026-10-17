@@ -41,6 +41,14 @@ with open(file_path, newline='') as vb_data:
                 v_e0_vb.append(float(row['v_e0']))
                 log_sigma_0_vb.append(float(row['log_sigma_0']))
 
+
+m_b = []
+for num0 in range(len(M_V_vb)):
+       mb_calc = R_G_vb[num0]-M_V_vb[num0]
+       m_b.append(mb_calc)
+       
+print(m_b)
+
 ## Linear regression analysis
 result = stats.linregress(FeH_vb, Age_vb)
 
@@ -75,7 +83,8 @@ low_fit = (slope - slope_err) * np.array(FeH_vb) + intercept
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
 plt.scatter(Age_vb, FeH_vb, color='red', label='Data')
-##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+# plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+
 plt.xlabel("Age (Gyr)")
 plt.ylabel("[Fe/H]")
 plt.legend()
@@ -99,4 +108,16 @@ plt.legend()
 plt.grid(True)
 plt.show()
 # very similar shape/relation as well as axes to Leaman et al Fig 2
+# %%
+
+plt.figure()
+plt.scatter(m_b, M_V_vb, color='red', label='Data')
+
+##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
+
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
 # %%

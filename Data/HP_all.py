@@ -141,14 +141,12 @@ for num2 in range(len(id_HPiii)):
       rv_gsr = rv_gsr0.value
       vgsr.append(rv_gsr)
 
-print((vgsr[0]))
+print(id_HPi[1], (vgsr[1]))
 
 #%%
-
 plt.figure()
 plt.title("Radius against Galactocentric velocity")
 plt.scatter(x=r_gc_HPi, y=vgsr, c='red', label='Data', s = 5)
-# plt.colorbar(orientation = "vertical")
 ##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("R (kpc)")
 plt.ylabel("Galactocentric Velocity")
