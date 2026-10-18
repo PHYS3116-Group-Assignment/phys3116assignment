@@ -200,13 +200,17 @@ plt.show()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(0, 0, color='yellow', label='Sun', s=100)
-ax.scatter(x_HPi, y_HPi, z_HPi, c=v_r_HPiii, cmap='viridis')
+scatter = ax.scatter(x_HPi, y_HPi, z_HPi, c=v_r_HPiii, cmap='viridis')
 ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
+ax.set_title('3D Scatter Plot of Globular Clusters')
+fig.colorbar(scatter, ax=ax, label='v_rot')
 plt.show()
 
+
+#%%
 plt.figure()
 plt.title("Position with v_rot (XY)")
 plt.scatter(x=x_HPi, y=y_HPi, c=v_r_HPiii, s = 5)

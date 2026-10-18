@@ -67,12 +67,15 @@ plt.grid(True)
 plt.show()
 
 # %%
+
+
 plt.figure()
 plt.title("Krause Age Vs [Fe/H]")
-plt.scatter(FeH_Kra, Age_Kra, color='red', label='Data')
-plt.plot(FeH_Kra, fit, color='blue', label=f'Linear Fit = {slope:.2f} * [Fe/H] + {intercept:.2f}')
+plt.scatter(FeH_Kra, Age_Kra, c=Mstar_Kra, label='Data')
+plt.colorbar(orientation = "vertical", label = "M_star")
+plt.plot(FeH_Kra, fit, color='red', label=f'Linear Fit = {slope:.2f} * [Fe/H] + {intercept:.2f}')
 plt.scatter([], [], color="w", alpha=0, label="R² = {:.3f}".format(r_squared))  # Invisible point for R² in legend
-plt.text(-0.97, 9.2, 'Cluster Name', fontsize=8, color='blue')
+plt.text(-0.97, 9.2, 'Cluster Name', fontsize=8, color='red')
 ##plt.errorbar(Age_Kra, FeH_Kra, xerr=Age_err_Kra, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("[Fe/H]")
 plt.ylabel("Age (Gyr)")

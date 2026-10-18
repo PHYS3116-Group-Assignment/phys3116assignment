@@ -100,17 +100,19 @@ plt.show()
 # as done in Forbes et al
 # %%
 
+#cmap="coolwarm"
+
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
-plt.scatter(FeH_vb, Age_vb, c=Age_vb, cmap="coolwarm", label='Data')
-plt.colorbar(orientation = "vertical", label="Age (Gyr)")
-plt.plot(FeH_vb, fit, color='blue', label=f'Linear Fit = {slope:.2f} * [Fe/H] + {intercept:.2f}')
+plt.scatter(FeH_vb, Age_vb, c=mass_vb, label='Data')
+plt.colorbar(orientation = "vertical", label="Mass (M☉)")
+plt.plot(FeH_vb, fit, color='red', label=f'Linear Fit = {slope:.2f} * [Fe/H] + {intercept:.2f}')
 plt.scatter([], [], color="w", alpha=0, label="R² = {:.3f}".format(r_squared))  # Invisible point for R² in legend
-plt.text(-0.97, 9.2, 'Cluster Name', fontsize=8, color='blue')
+plt.text(-0.97, 9.2, 'Cluster Name', fontsize=8, color='red')
 ##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("[Fe/H]")
 plt.ylabel("Age (Gyr)")
-plt.legend()
+#plt.legend()
 plt.grid(True)
 plt.show()
 # very similar shape/relation as well as axes to Leaman et al Fig 2
