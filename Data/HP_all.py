@@ -198,6 +198,7 @@ plt.show()
 #3d plot of postion of globular clusters in galactic coordinates
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
+ax.scatter(0, 0, color='yellow', label='Sun', s=100)
 ax.scatter(x_HPi, y_HPi, z_HPi, c='red', cmap='viridis')
 ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
