@@ -182,8 +182,19 @@ plt.grid(True)
 plt.show()
 
 
+plt.figure()
+plt.title("Escape velocity vs log(mass)")
+plt.scatter(v_e0_vb,((mass_vb)), c = FeH_vb, cmap = "magma", label='Data')
+plt.colorbar(orientation = "vertical", label = "Fe/H")
+plt.xlabel("Escape Velocity")
+plt.ylabel("Mass (calculated via magnitude)")
+plt.legend()
+plt.grid(True)
+plt.show()
 
-
+#correlation between mass and metallicity, proposed in Krause data, doesnt reaaaally follow here,
+# there seems to be kind of a cap in mass increase for the most part at around 4.5-5 for whatever reason
+# that said looking at the previous chart, the higher metallicity bodies are the ones that are closest to the halo
 
 
 # %%

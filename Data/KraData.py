@@ -79,6 +79,8 @@ plt.ylabel("Age (Gyr)")
 plt.legend()
 plt.grid(True)
 plt.show()
+#right arm (in situ) has very stable mass spread, while the left  "arm" has a greater spread in mass
+# and as the metallicity increases the mass generally increases as well (again only for the left arm)
 # %%
 
 
