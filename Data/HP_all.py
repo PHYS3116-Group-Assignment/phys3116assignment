@@ -100,6 +100,7 @@ with open(file_path, newline='') as HPiii_data:
         lg_th_HPiii.append(to_float(row['lg_th']))
 
 
+
 for num1 in range(len(ra_HPi)):
       ra_deg = ra_h_HPi[num1] + ra_min_HPi[num1]/60 + ra_sec_HPi[num1]/3600
       ra_deg_HPi.append(ra_deg)
@@ -199,12 +200,49 @@ plt.show()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(0, 0, color='yellow', label='Sun', s=100)
-ax.scatter(x_HPi, y_HPi, z_HPi, c='red', cmap='viridis')
+ax.scatter(x_HPi, y_HPi, z_HPi, c=v_r_HPiii, cmap='viridis')
 ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
 plt.show()
+
+plt.figure()
+plt.title("Position with v_rot (XY)")
+plt.scatter(x=x_HPi, y=y_HPi, c=v_r_HPiii, s = 5)
+plt.colorbar(orientation = "vertical", label = "v_rot")
+plt.xlim(-20,40)
+plt.ylim(-20,20)
+plt.xlabel("X")
+plt.ylabel("Y")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure()
+plt.title("Position with v_rot (XZ)")
+plt.scatter(x=x_HPi, y=z_HPi, c=v_r_HPiii, s = 5)
+plt.colorbar(orientation = "vertical", label = "v_rot")
+plt.xlabel("X")
+plt.ylabel("z")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure()
+plt.title("Position with v_rot (YZ)")
+plt.scatter(x=y_HPi, y=z_HPi, c=v_r_HPiii, s = 5)
+plt.colorbar(orientation = "vertical", label = "v_rot")
+plt.xlabel("y")
+plt.ylabel("z")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+#given general premise of closer to halo indicates accreted, possibly could eliminate very outer GCs
+# as in situ to allow for a closer look at the trends in the halo, which is currently difficult
+#given the outer GCs are increasing the scale of the plot
 
 #%%
 
@@ -247,35 +285,6 @@ plt.ylabel("Velocity (km/s)")
 plt.legend()
 plt.grid(True)
 plt.show()
-
-
-#REDUNDANT
-#converting heliocentric velocity to galactocentric
-# import numpy as np
-# import astropy as ast
-# import astropy.coordinates as coord
-# from astropy import units as u
-# from astropy.coordinates import SkyCoord
-
-# c_1 = []
-# gc_1 = []
-
-# for num2 in range(len(v_r_HPiii)):
-#       c1 = coord.SkyCoord(
-#         ra= ra_deg_HPi[num2] * u.degree,
-#         dec= decl_dec_deg_HPi[num2] * u.degree,
-#         distance=(r_gc_HPi[num2] * u.mas).to(u.pc, u.parallax()),
-# #       x=x_HPi[num2], y=y_HPi[num2], z=z_HPi[num2], unit='kpc', representation_type='cartesian',
-# #       radial_velocity= v_r_HPiii[num2] * (u.km / u.s),
-#         frame="icrs",)
-      
-#       c_1.append(c1)
-
-# for num3 in c_1:
-#       gc1 = num3.transform_to(coord.Galactocentric)
-#       gc_1.append(gc1)
-
-# print(gc_1[0].v_x)
 
 
 
@@ -345,3 +354,4 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+#%%

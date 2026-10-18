@@ -58,7 +58,8 @@ low_fit = (slope - slope_err) * np.array(FeH_Kra) + intercept
 # %%
 plt.figure()
 plt.title("Krause Age Vs [Fe/H]")
-plt.scatter(Age_Kra, FeH_Kra, color='red', label='Data')
+plt.scatter(Age_Kra, FeH_Kra, c=Mstar_Kra, label='Data')
+plt.colorbar(orientation = "vertical", label = "M_star")
 plt.xlabel("Age (Gyr)")
 plt.ylabel("[Fe/H]")
 plt.legend()

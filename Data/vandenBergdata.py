@@ -46,9 +46,9 @@ with open(file_path, newline='') as vb_data:
 
 
 for num0 in range(len(Name_vb)):
-       mass_star = M_V_vb[num0]/1.6
+       mass_star = M_V_vb[num0]/-1.6
        mass_vb.append(mass_star)
-       log_mass = (mass_vb[num0])/solar_mass
+       log_mass = np.log10(mass_vb[num0])/solar_mass
        log_mass_vb.append(log_mass)
 
        
@@ -100,7 +100,6 @@ plt.show()
 # as done in Forbes et al
 # %%
 
-#putting age on x axis to match bifurcated amr of milky way (Leaman et al) paper (which appears to reflect/pull influence relatively well from paper in assignment brief vandenberg)
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
 plt.scatter(FeH_vb, Age_vb, c=Age_vb, cmap="coolwarm", label='Data')
@@ -129,32 +128,61 @@ plt.show()
 
 plt.figure()
 plt.title("Standard VB Age Vs [Fe/H]")
+# plt.scatter(FeH_vb, Age_vb, color='red', label='Data')
+# plt.xlabel("Fe/H")
+# plt.ylabel("Age")
 plt.scatter(Age_vb, FeH_vb, color='red', label='Data')
+plt.xlabel("Age")
+plt.ylabel("Fe/H")
 plt.legend()
 plt.grid(True)
 plt.show()
+#bifurcation to the left of around 12.25 Gyr indicates accretion
 
+#%%
 plt.figure()
 plt.title("Galactic Radius vs Age")
-plt.scatter(R_G_vb, Age_vb, color='orange', label='Data')
+plt.scatter(R_G_vb, Age_vb, c = FeH_vb, cmap = "magma", label='Data')
+plt.colorbar(orientation = "horizontal", label = "Fe/H")
+plt.xlabel("[Radius kpc")
+plt.ylabel("Age (Gyr)")
 plt.legend()
 plt.grid(True)
 plt.show()
+#colourmapping metallicity to age/radius graph indicates that the GCs that make up the bifurcated
+#arm of the Age/FeH plot are typically closer to the centre of the galaxy ie in the halo
+# indicating that there is a correlation between the halo and accreted GCs
 
+#%%
 plt.figure()
 plt.title("Galactice Radius vs Magnitude")
-plt.scatter(R_G_vb, M_V_vb, color='yellow', label='Data')
+plt.scatter(R_G_vb, M_V_vb, label='Data')
+plt.xlabel("Radius kpc")
+plt.ylabel("Magnitude")
 plt.legend()
 plt.grid(True)
 plt.show()
 
+#GCs closer to halo, previously correlated to accreted GCs, are *somewhat* clustered around a magnitude
+# of around <-7, so in halo = brighter? magnitude also correlates to mass so heavier
+# brighter indicates younger?
+# what is correlation between luminosity and metallicity
+# correlate mass to velocity; its mass and proximity to nucleus gives it a specific
+#velocity, which can be used to identify stuff in HP_all
 
+#%%
 plt.figure()
 plt.title("Escape velocity vs log(mass)")
-plt.scatter(v_e0_vb,((mass_vb)), color='blue', label='Data')
+plt.scatter(v_e0_vb,((mass_vb)), c = R_G_vb, cmap = "magma", label='Data')
+plt.colorbar(orientation = "vertical", label = "Galactic Radius")
+plt.xlabel("Escape Velocity")
+plt.ylabel("Mass (calculated via magnitude)")
 plt.legend()
 plt.grid(True)
 plt.show()
+
+
+
 
 
 
