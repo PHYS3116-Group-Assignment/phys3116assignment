@@ -106,6 +106,42 @@ for num1 in range(len(ra_HPi)):
       decl_deg = decl_deg_HPi[num1] + decl_min_HPi[num1]/60 + decl_sec_HPi[num1]/3600
       decl_dec_deg_HPi.append(decl_deg)
 
+script_dir = Path(__file__).parent.absolute()
+file_path = script_dir / 'vandenBerg_table2.csv'
+
+with open(file_path, newline='') as vb_data:
+        globclusters = csv.DictReader(vb_data)
+
+        ngc_vb = []
+        Name_vb = []
+        FeH_vb = []
+        Age_vb = []
+        Age_err_vb = []
+        Method_vb = []
+        Figs_vb = []
+        Range_vb = []
+        HBtype_vb = []
+        R_G_vb = []
+        M_V_vb = []
+        v_e0_vb = []
+        log_sigma_0_vb = []
+
+        for row in globclusters:
+                ngc_vb.append(row['#NGC'])
+                Name_vb.append(row['Name'])
+                FeH_vb.append(float(row['FeH']))
+                Age_vb.append(float(row['Age']))
+                Age_err_vb.append(float(row['Age_err']))
+                Method_vb.append(row['Method'])
+                Figs_vb.append(row['Figs'])
+                Range_vb.append(row['Range'])
+                HBtype_vb.append(float(row['HBtype']))
+                R_G_vb.append(float(row['R_G']))
+                M_V_vb.append(float(row['M_V']))
+                v_e0_vb.append(float(row['v_e0']))
+                log_sigma_0_vb.append(float(row['log_sigma_0']))
+
+
 # for num0 in range(len(id_HPiii)):
 #       if v_r_HPiii[num0] == 0 and v_LSR_HPiii[num0] == 0 and sig_v_HPiii[num0] == 0:
 #                         category.append("Undefined")
@@ -243,3 +279,68 @@ plt.show()
 
 
 #%%
+# Age-metallicity relation coloured by |z|
+# Function to sort names in a case-insensitive manner
+def name_key(name):
+    return "".join(str(name).split()).upper() # Split the name into a list of strings and convert to uppercase
+
+# Match Harris_all names with Z data in VandenBerg data
+z_lookup = {
+      name_key(name): z 
+      for name, z in zip(id_HPi, z_HPi)
+}
+
+plot_feh_AMZ =[]
+plot_age_AMZ =[]
+plot_age_err_AMZ =[]
+plot_z_AMZ =[]
+unmatched_names_AMZ = []
+
+for name, feh_AMZ, age_AMZ, age_err_AMZ in zip(
+      ngc_vb, FeH_vb, Age_vb, Age_err_vb):
+        key = name_key(name)
+
+        if key.isdigit():
+                key = f"NGC{key}"
+
+        if key not in z_lookup:
+            unmatched_names_AMZ.append(name)
+            continue
+
+        z_AMZ = z_lookup[key]
+
+        if not np.all(np.isfinite([feh_AMZ, age_AMZ, age_err_AMZ, z_AMZ])):
+            unmatched_names_AMZ.append(name)
+            continue
+
+        plot_feh_AMZ.append(feh_AMZ)
+        plot_age_AMZ.append(age_AMZ)
+        plot_age_err_AMZ.append(
+              age_err_AMZ if np.isfinite(age_err_AMZ) and age_err_AMZ > 0 else np.nan
+        )
+        plot_z_AMZ.append(abs(z_AMZ))
+
+print("Unmatched names in Age-Metallicity-Z relation:", unmatched_names_AMZ)
+print("Clusters plotted:", len(plot_feh_AMZ))
+
+# Metallicity vs |Z| plot, coloured by age
+plt.figure()
+plt.title("Metallicity and Height Above the Galactic Plane")
+plt.scatter(
+    x=plot_feh_AMZ,
+    y=plot_z_AMZ,
+    c=plot_age_AMZ,
+    cmap="coolwarm",
+    label="Data",
+    s=25
+)
+plt.colorbar(
+    orientation="vertical",
+    label="Age (Gyr)"
+)
+plt.xlabel("[Fe/H] (dex)")
+plt.ylabel("|Z| (kpc)")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
