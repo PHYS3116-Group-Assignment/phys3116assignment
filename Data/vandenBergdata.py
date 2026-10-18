@@ -25,6 +25,9 @@ with open(file_path, newline='') as vb_data:
         M_V_vb = []
         v_e0_vb = []
         log_sigma_0_vb = []
+        mass_vb = []
+        log_mass_vb = []
+        solar_mass = 2E30
 
         for row in globclusters:
                 ngc_vb.append(row['#NGC'])
@@ -42,12 +45,15 @@ with open(file_path, newline='') as vb_data:
                 log_sigma_0_vb.append(float(row['log_sigma_0']))
 
 
-m_b = []
-for num0 in range(len(M_V_vb)):
-       mb_calc = R_G_vb[num0]-M_V_vb[num0]
-       m_b.append(mb_calc)
+for num0 in range(len(Name_vb)):
+       mass_star = M_V_vb[num0]/1.6
+       mass_vb.append(mass_star)
+       log_mass = (mass_vb[num0])/solar_mass
+       log_mass_vb.append(log_mass)
+
        
-print(m_b)
+       
+
 
 ## Linear regression analysis
 result = stats.linregress(FeH_vb, Age_vb)
@@ -109,19 +115,47 @@ plt.legend()
 plt.grid(True)
 plt.show()
 # very similar shape/relation as well as axes to Leaman et al Fig 2
-# %%
 
-plt.figure()
-plt.scatter(m_b, M_V_vb, color='red', label='Data')
-
-##plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
-
-plt.legend()
-plt.grid(True)
-plt.show()
 
 
 # %%
 
 #-1.9238x^2-8.3607+3.097 (LMC) (fe/h is x axis)
 #-0.0024x^3+0.0537x^2-0.408x-0.19 (SMC)
+
+
+#%%
+#following from vandenberg paper
+
+plt.figure()
+plt.title("Standard VB Age Vs [Fe/H]")
+plt.scatter(Age_vb, FeH_vb, color='red', label='Data')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure()
+plt.title("Galactic Radius vs Age")
+plt.scatter(R_G_vb, Age_vb, color='orange', label='Data')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+plt.figure()
+plt.title("Galactice Radius vs Magnitude")
+plt.scatter(R_G_vb, M_V_vb, color='yellow', label='Data')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+plt.figure()
+plt.title("Escape velocity vs log(mass)")
+plt.scatter(v_e0_vb,((mass_vb)), color='blue', label='Data')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
+# %%
