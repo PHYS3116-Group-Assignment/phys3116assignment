@@ -102,6 +102,31 @@ plt.show()
 
 #cmap="coolwarm"
 
+SMC = []
+LMC = []
+
+for num in range(len(FeH_vb)):
+       lmc = (-1.9238*(FeH_vb[num]**2))-(8.3607*FeH_vb[num])+3.0937
+       smc = (12.974*(FeH_vb[num])**3)+(49.59*(FeH_vb[num])**2)+(48.896*FeH_vb[num])+16.025
+       LMC.append(lmc)
+       SMC.append(smc)
+
+plt.figure()
+plt.title("VB Age Vs [Fe/H]")
+plt.scatter(FeH_vb, Age_vb, c=mass_vb, label='Data')
+plt.colorbar(orientation = "vertical", label="Mass (M☉)")
+plt.scatter(FeH_vb, SMC, linestyle='dashed', color = 'red')
+plt.scatter(FeH_vb, LMC, linestyle = 'dashed', color = 'green')
+plt.xlabel("[Fe/H]")
+plt.xlim(-2.1,0)
+plt.ylabel("Age (Gyr)")
+#plt.legend()
+plt.grid(True)
+plt.show()
+
+#%%
+
+
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
 plt.scatter(FeH_vb, Age_vb, c=mass_vb, label='Data')
@@ -194,9 +219,9 @@ plt.legend()
 plt.grid(True)
 plt.show()
 
-#correlation between mass and metallicity, proposed in Krause data, doesnt reaaaally follow here,
+#correlation between mass and metallicity (which is to say bodies in globular cluster arm had a range of masses from around 6-12), proposed in Krause data, doesnt reaaaally follow here,
 # there seems to be kind of a cap in mass increase for the most part at around 4.5-5 for whatever reason
 # that said looking at the previous chart, the higher metallicity bodies are the ones that are closest to the halo
-
+# mass here would more be used to link to the escape velocity, with the 
 
 # %%

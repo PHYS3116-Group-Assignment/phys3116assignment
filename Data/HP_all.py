@@ -143,16 +143,6 @@ with open(file_path, newline='') as vb_data:
                 log_sigma_0_vb.append(float(row['log_sigma_0']))
 
 
-# for num0 in range(len(id_HPiii)):
-#       if v_r_HPiii[num0] == 0 and v_LSR_HPiii[num0] == 0 and sig_v_HPiii[num0] == 0:
-#                         category.append("Undefined")
-#       else:
-#             category.append("GC")
-
-# print(category)
-# print(id_HPi)
-# print(type(v_LSR_HPiii[16]))
-
 
 #%%
 
@@ -358,4 +348,12 @@ plt.legend()
 plt.grid(True)
 plt.tight_layout()
 plt.show()
-#%%
+
+#greater spread of metallicity that mirrors the one in vandenberg that also correlates with idea that accreted clusters
+# would be closer to the centre/halo
+
+
+# %%
+
+
+
