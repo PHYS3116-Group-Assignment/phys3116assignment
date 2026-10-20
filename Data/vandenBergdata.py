@@ -102,31 +102,35 @@ plt.show()
 
 #cmap="coolwarm"
 
-SMC = []
-LMC = []
+#SMC = []
+#LMC = []
 
-for num in range(len(FeH_vb)):
-       lmc = (-1.9238*(FeH_vb[num]**2))-(8.3607*FeH_vb[num])+3.0937
-       smc = (12.974*(FeH_vb[num])**3)+(49.59*(FeH_vb[num])**2)+(48.896*FeH_vb[num])+16.025
-       LMC.append(lmc)
-       SMC.append(smc)
+#for num in range(len(FeH_vb)):
+    #   lmc = (-1.9238*(FeH_vb[num]**2))-(8.3607*FeH_vb[num])+3.0937
+     #  smc = (12.974*(FeH_vb[num])**3)+(49.59*(FeH_vb[num])**2)+(48.896*FeH_vb[num])+16.025
+      # LMC.append(lmc)
+      # SMC.append(smc)
+
+x = np.linspace(-2.5, max(FeH_vb), 500)
+
+smc_fit = 12.974*x**3 + 49.59*x**2 + 48.896*x + 16.025
+lmc_fit = -1.9238*x**2 - 8.3607*x + 3.0937
 
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
-plt.scatter(FeH_vb, Age_vb, c=mass_vb, label='Data')
+plt.scatter(FeH_vb, Age_vb, c=mass_vb)
 plt.colorbar(orientation = "vertical", label="Mass (M☉)")
-plt.scatter(FeH_vb, SMC, linestyle='dashed', color = 'red')
-plt.scatter(FeH_vb, LMC, linestyle = 'dashed', color = 'green')
+plt.plot(x, smc_fit, linestyle='dashed', color = 'red', label='SMC')
+plt.plot(x, lmc_fit, linestyle = 'dashed', color = 'green', label='LMC')
 plt.xlabel("[Fe/H]")
 plt.xlim(-2.6,0)
 plt.ylim(8,15)
 plt.ylabel("Age (Gyr)")
-#plt.legend()
+plt.legend()
 plt.grid(True)
 plt.show()
 
 #%%
-
 
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")

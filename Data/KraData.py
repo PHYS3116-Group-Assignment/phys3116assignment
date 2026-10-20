@@ -68,18 +68,41 @@ plt.show()
 
 # %%
 
+x = np.linspace(-3, max(FeH_Kra), 500)
+
+smc_fit = 12.974*x**3 + 49.59*x**2 + 48.896*x + 16.025
+lmc_fit = -1.9238*x**2 - 8.3607*x + 3.0937
+
+plt.figure()
+plt.title("Krause Age Vs [Fe/H]")
+plt.scatter(FeH_Kra, Age_Kra, c=Mstar_Kra)
+plt.colorbar(orientation = "vertical", label="Mass (M☉)")
+plt.plot(x, smc_fit, linestyle='dashed', color = 'red', label='SMC')
+plt.plot(x, lmc_fit, linestyle = 'dashed', color = 'green', label='LMC')
+plt.xlabel("[Fe/H]")
+plt.xlim(-2.5,0)
+plt.ylim(6,15)
+plt.ylabel("Age (Gyr)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
+# %%
+
 
 plt.figure()
 plt.title("Krause Age Vs [Fe/H]")
 plt.scatter(FeH_Kra, Age_Kra, c=Mstar_Kra, label='Data')
 plt.colorbar(orientation = "vertical", label = "M_star")
 plt.plot(FeH_Kra, fit, color='red', label=f'Linear Fit = {slope:.2f} * [Fe/H] + {intercept:.2f}')
-plt.scatter([], [], color="w", alpha=0, label="R² = {:.3f}".format(r_squared))  # Invisible point for R² in legend
+plt.scatter([], [], color="w", alpha=0, label="R² = {:.3f}".format(r_squared))
 plt.text(-0.97, 9.2, 'Cluster Name', fontsize=8, color='red')
 ##plt.errorbar(Age_Kra, FeH_Kra, xerr=Age_err_Kra, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
 plt.xlabel("[Fe/H]")
 plt.ylabel("Age (Gyr)")
-plt.legend()
+#plt.legend()
 plt.grid(True)
 plt.show()
 #right arm (in situ) has very stable mass spread, while the left  "arm" has a greater spread in mass
