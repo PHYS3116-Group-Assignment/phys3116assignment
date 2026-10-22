@@ -29,6 +29,7 @@ with open(file_path, newline='') as vb_data:
         log_mass_vb = []
         solar_mass = 2E30
 
+
         for row in globclusters:
                 ngc_vb.append(row['#NGC'])
                 Name_vb.append(row['Name'])
@@ -51,6 +52,8 @@ for num0 in range(len(Name_vb)):
        log_mass = np.log10(mass_vb[num0])/(solar_mass)
        log_mass_vb.append(log_mass)
 
+print(log_mass_vb)
+print(mass_vb)
 
 ## Linear regression analysis
 result = stats.linregress(FeH_vb, Age_vb)
@@ -86,8 +89,8 @@ lmc_fit = -1.9238*x**2 - 8.3607*x + 3.0937
 
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
-plt.scatter(FeH_vb, Age_vb, c=mass_vb)
-plt.colorbar(orientation = "vertical", label="Mass")
+plt.scatter(FeH_vb, Age_vb, c=M_V_vb)
+plt.colorbar(orientation = "vertical", label="Magnitude")
 # plt.plot(x, smc_fit, linestyle='dashed', color = 'red', label='SMC')
 # plt.plot(x, lmc_fit, linestyle = 'dashed', color = 'green', label='LMC')
 plt.xlabel("[Fe/H]")

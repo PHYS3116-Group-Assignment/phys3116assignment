@@ -32,12 +32,6 @@ with open(file_path, newline='') as HPi_data:
         x_HPi = []
         y_HPi = []
         z_HPi = []
-        mass_HP = []
-        solar_mass = 2E30
-        log_mass_HP = []
-
-
-
 
         for row in globclusters:
                 id_HPi.append(row['ID'])
@@ -64,8 +58,6 @@ with open(file_path, newline='') as HPi_data:
                     decl_deg_HPi.append(-1*float(value2[1]+value2[2]))
                 decl_min_HPi.append(float(value2[4]+value2[5]))
                 decl_sec_HPi.append(float(value2[7]+value2[8]))
-
-
 
 script_dir = Path(__file__).parent.absolute()
 file_path = script_dir / 'HarrisPartIII.csv'
@@ -109,21 +101,6 @@ with open(file_path, newline='') as HPiii_data:
 
 
 
-
-
-    for mass in range(1,len(id_HPi)):
-        mass_GC = np.log10((mu_V_HPiii[mass]*(1.6))/solar_mass)
-        mass_HP.append(mass_GC)
-
-
-
-
-for num1 in range(len(ra_HPi)):
-      ra_deg = ra_h_HPi[num1] + ra_min_HPi[num1]/60 + ra_sec_HPi[num1]/3600
-      ra_deg_HPi.append(ra_deg)
-      decl_deg = decl_deg_HPi[num1] + decl_min_HPi[num1]/60 + decl_sec_HPi[num1]/3600
-      decl_dec_deg_HPi.append(decl_deg)
-
 script_dir = Path(__file__).parent.absolute()
 file_path = script_dir / 'vandenBerg_table2.csv'
 
@@ -159,7 +136,48 @@ with open(file_path, newline='') as vb_data:
                 v_e0_vb.append(float(row['v_e0']))
                 log_sigma_0_vb.append(float(row['log_sigma_0']))
 
-print(mass_HP)
+
+      
+      
+      
+
+
+# calculating magnitude and mass using formula from this website https://ned.ipac.caltech.edu/level5/March05/Graham/Graham2_2.html
+magnitude_HP = []
+mass_HP = []
+
+
+for num0 in range(len(id_HPi)):
+      magnitude = mu_V_HPiii[num0] - 2.5 * np.log10(np.pi*((r_h_HPiii[num0] * 60)**2)) - 36.57
+      magnitude_HP.append(magnitude)
+      mass = magnitude_HP[num0] * -1.6
+      mass_HP.append(mass)
+
+
+for num1 in range(len(ra_HPi)):
+      ra_deg = ra_h_HPi[num1] + ra_min_HPi[num1]/60 + ra_sec_HPi[num1]/3600
+      ra_deg_HPi.append(ra_deg)
+      decl_deg = decl_deg_HPi[num1] + decl_min_HPi[num1]/60 + decl_sec_HPi[num1]/3600
+      decl_dec_deg_HPi.append(decl_deg)
+
+x_g_HP = []
+y_g_HP = []
+z_g_HP = []
+cart_g_HP = []
+
+cart_array = np.array((x_HPi, y_HPi, z_HPi), dtype=float)
+# print(cart_array)
+transform_matrix = np.array([[-0.054876, -0.873437, -0.483835],[0.494109, -0.44483, 0.746982],[-0.867666, -0.198076, 0.455984]])
+# print(np.array([cart_array[0,0], cart_array[1,0], cart_array[2,0]]))
+for coord in range(len(cart_array[1])-1):
+      g_coord_vector = (np.matmul(transform_matrix, np.array([cart_array[0,coord], cart_array[1,coord], cart_array[2,coord]])))
+      cart_g_HP.append(g_coord_vector)
+print(np.array(cart_g_HP))
+      
+
+
+
+
 
 #%%
 
@@ -369,11 +387,11 @@ plt.show()
 
 # %%
 plt.figure()
-plt.title("Metallicity and Height Above the Galactic Plane")
-plt.scatter(x = v_r_HPiii, y = mu_V_HPiii, s = 25)
+plt.title("Magnitude and rotational velocity")
+plt.scatter(x = v_r_HPiii, y = mass_HP,c=r_gc_HPi,s = 25)
+plt.colorbar(orientation = "vertical", label = "R_gc")
 plt.xlabel("v_rot")
-plt.ylabel("magnitude")
-plt.legend()
+plt.ylabel("Mass")
 plt.grid(True)
 plt.tight_layout()
 plt.show()
