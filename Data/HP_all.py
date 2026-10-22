@@ -32,6 +32,12 @@ with open(file_path, newline='') as HPi_data:
         x_HPi = []
         y_HPi = []
         z_HPi = []
+        mass_HP = []
+        solar_mass = 2E30
+        log_mass_HP = []
+
+
+
 
         for row in globclusters:
                 id_HPi.append(row['ID'])
@@ -58,6 +64,8 @@ with open(file_path, newline='') as HPi_data:
                     decl_deg_HPi.append(-1*float(value2[1]+value2[2]))
                 decl_min_HPi.append(float(value2[4]+value2[5]))
                 decl_sec_HPi.append(float(value2[7]+value2[8]))
+
+
 
 script_dir = Path(__file__).parent.absolute()
 file_path = script_dir / 'HarrisPartIII.csv'
@@ -98,6 +106,15 @@ with open(file_path, newline='') as HPiii_data:
         rho_0_HPiii.append(to_float(row['rho_0']))
         lg_tc_HPiii.append(to_float(row['lg_tc']))
         lg_th_HPiii.append(to_float(row['lg_th']))
+
+
+
+
+
+    for mass in range(1,len(id_HPi)):
+        mass_GC = np.log10((mu_V_HPiii[mass]*(1.6))/solar_mass)
+        mass_HP.append(mass_GC)
+
 
 
 
@@ -142,7 +159,7 @@ with open(file_path, newline='') as vb_data:
                 v_e0_vb.append(float(row['v_e0']))
                 log_sigma_0_vb.append(float(row['log_sigma_0']))
 
-
+print(mass_HP)
 
 #%%
 
@@ -168,8 +185,6 @@ for num2 in range(len(id_HPiii)):
       rv_gsr = rv_gsr0.value
       vgsr.append(rv_gsr)
 
-print(id_HPi[1], (vgsr[1]))
-
 #%%
 plt.figure()
 plt.title("Radius against Galactocentric velocity")
@@ -190,7 +205,7 @@ plt.show()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(0, 0, color='yellow', label='Sun', s=100)
-scatter = ax.scatter(x_HPi, y_HPi, z_HPi, c=v_r_HPiii, cmap='viridis')
+scatter = ax.scatter(x_HPi, y_HPi, z_HPi, c=r_gc_HPi, cmap='viridis')
 ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
@@ -205,14 +220,13 @@ plt.figure()
 plt.title("Position with v_rot (XY)")
 plt.scatter(x=x_HPi, y=y_HPi, c=v_r_HPiii, s = 5)
 plt.colorbar(orientation = "vertical", label = "v_rot")
-plt.xlim(-20,40)
-plt.ylim(-20,20)
+
 plt.xlabel("X")
 plt.ylabel("Y")
 plt.legend()
 plt.grid(True)
 plt.show()
-
+#%%
 plt.figure()
 plt.title("Position with v_rot (XZ)")
 plt.scatter(x=x_HPi, y=z_HPi, c=v_r_HPiii, s = 5)
@@ -222,7 +236,7 @@ plt.ylabel("z")
 plt.legend()
 plt.grid(True)
 plt.show()
-
+#%%
 plt.figure()
 plt.title("Position with v_rot (YZ)")
 plt.scatter(x=y_HPi, y=z_HPi, c=v_r_HPiii, s = 5)
@@ -354,6 +368,16 @@ plt.show()
 
 
 # %%
+plt.figure()
+plt.title("Metallicity and Height Above the Galactic Plane")
+plt.scatter(x = v_r_HPiii, y = mu_V_HPiii, s = 25)
+plt.xlabel("v_rot")
+plt.ylabel("magnitude")
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
 
 
 
+# %%

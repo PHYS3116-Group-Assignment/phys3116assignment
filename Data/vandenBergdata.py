@@ -46,13 +46,10 @@ with open(file_path, newline='') as vb_data:
 
 
 for num0 in range(len(Name_vb)):
-       mass_star = M_V_vb[num0]/-1.6
+       mass_star = M_V_vb[num0]*(-1.6)
        mass_vb.append(mass_star)
-       log_mass = np.log10(mass_vb[num0])/solar_mass
+       log_mass = np.log10(mass_vb[num0])/(solar_mass)
        log_mass_vb.append(log_mass)
-
-       
-       
 
 
 ## Linear regression analysis
@@ -74,54 +71,25 @@ fit = slope * np.array(FeH_vb) + intercept
 up_fit = (slope + slope_err) * np.array(FeH_vb) + intercept
 low_fit = (slope - slope_err) * np.array(FeH_vb) + intercept
 
-
 # Determine outliers based on residuals
-
-
-
 
 # Plot data and line
 
-
-## Seperate interactive cell for plotting to avoid reloading data when plotting multiple times
-##allows us to better track plots from different progrrams and data sets within vs code itself. 
 # %%
-plt.figure()
-plt.title("VB Age Vs [Fe/H]")
-plt.scatter(Age_vb, FeH_vb, color='red', label='Data')
-# plt.errorbar(Age_vb, FeH_vb, xerr=Age_err_vb, fmt='o', color='red', markersize=6, capsize=4, label='Data with error bars')
-
-plt.xlabel("Age (Gyr)")
-plt.ylabel("[Fe/H]")
-plt.legend()
-plt.grid(True)
-plt.show()
-#might be worth using this to just qualitatively describe trends and whatnot
-# as done in Forbes et al
-# %%
-
-#cmap="coolwarm"
-
-#SMC = []
-#LMC = []
-
-#for num in range(len(FeH_vb)):
-    #   lmc = (-1.9238*(FeH_vb[num]**2))-(8.3607*FeH_vb[num])+3.0937
-     #  smc = (12.974*(FeH_vb[num])**3)+(49.59*(FeH_vb[num])**2)+(48.896*FeH_vb[num])+16.025
-      # LMC.append(lmc)
-      # SMC.append(smc)
 
 x = np.linspace(-2.5, max(FeH_vb), 500)
 
+#-1.9238x^2-8.3607+3.097 (LMC) (fe/h is x axis)
+#-0.0024x^3+0.0537x^2-0.408x-0.19 (SMC)
 smc_fit = 12.974*x**3 + 49.59*x**2 + 48.896*x + 16.025
 lmc_fit = -1.9238*x**2 - 8.3607*x + 3.0937
 
 plt.figure()
 plt.title("VB Age Vs [Fe/H]")
 plt.scatter(FeH_vb, Age_vb, c=mass_vb)
-plt.colorbar(orientation = "vertical", label="Mass (M☉)")
-plt.plot(x, smc_fit, linestyle='dashed', color = 'red', label='SMC')
-plt.plot(x, lmc_fit, linestyle = 'dashed', color = 'green', label='LMC')
+plt.colorbar(orientation = "vertical", label="Mass")
+# plt.plot(x, smc_fit, linestyle='dashed', color = 'red', label='SMC')
+# plt.plot(x, lmc_fit, linestyle = 'dashed', color = 'green', label='LMC')
 plt.xlabel("[Fe/H]")
 plt.xlim(-2.6,0)
 plt.ylim(8,15)
@@ -147,28 +115,6 @@ plt.grid(True)
 plt.show()
 # very similar shape/relation as well as axes to Leaman et al Fig 2
 
-
-
-# %%
-
-#-1.9238x^2-8.3607+3.097 (LMC) (fe/h is x axis)
-#-0.0024x^3+0.0537x^2-0.408x-0.19 (SMC)
-
-
-#%%
-#following from vandenberg paper
-
-plt.figure()
-plt.title("Standard VB Age Vs [Fe/H]")
-# plt.scatter(FeH_vb, Age_vb, color='red', label='Data')
-# plt.xlabel("Fe/H")
-# plt.ylabel("Age")
-plt.scatter(Age_vb, FeH_vb, color='red', label='Data')
-plt.xlabel("Age")
-plt.ylabel("Fe/H")
-plt.legend()
-plt.grid(True)
-plt.show()
 #bifurcation to the left of around 12.25 Gyr indicates accretion
 
 #%%
@@ -188,7 +134,7 @@ plt.show()
 #%%
 plt.figure()
 plt.title("Galactice Radius vs Magnitude")
-plt.scatter(R_G_vb, M_V_vb, label='Data')
+plt.scatter(R_G_vb, M_V_vb,  label='Data')
 plt.xlabel("Radius kpc")
 plt.ylabel("Magnitude")
 plt.legend()
@@ -205,14 +151,14 @@ plt.show()
 #%%
 plt.figure()
 plt.title("Escape velocity vs log(mass)")
-plt.scatter(v_e0_vb,((mass_vb)), c = R_G_vb, cmap = "magma", label='Data')
-plt.colorbar(orientation = "vertical", label = "Galactic Radius")
+plt.scatter(v_e0_vb,((mass_vb)),cmap = "magma", label='Data')
 plt.xlabel("Escape Velocity")
 plt.ylabel("Mass (calculated via magnitude)")
 plt.legend()
 plt.grid(True)
 plt.show()
 
+#%%
 
 plt.figure()
 plt.title("Escape velocity vs log(mass)")
@@ -229,4 +175,14 @@ plt.show()
 # that said looking at the previous chart, the higher metallicity bodies are the ones that are closest to the halo
 # mass here would more be used to link to the escape velocity, with the 
 
+# %%
+plt.figure()
+plt.title("Escape velocity vs Radius")
+plt.scatter(R_G_vb,((v_e0_vb)), c = HBtype_vb, cmap = "magma", label='Data')
+plt.colorbar(orientation = "vertical")
+plt.xlabel("Radius")
+plt.ylabel("Velocity")
+plt.legend()
+plt.grid(True)
+plt.show()
 # %%
