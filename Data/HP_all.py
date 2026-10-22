@@ -163,18 +163,17 @@ for num1 in range(len(ra_HPi)):
 x_g_HP = []
 y_g_HP = []
 z_g_HP = []
-cart_g_HP = []
+cart_g_HP = np.empty([157, 3])
 
 cart_array = np.array((x_HPi, y_HPi, z_HPi), dtype=float)
 # print(cart_array)
 transform_matrix = np.array([[-0.054876, -0.873437, -0.483835],[0.494109, -0.44483, 0.746982],[-0.867666, -0.198076, 0.455984]])
 # print(np.array([cart_array[0,0], cart_array[1,0], cart_array[2,0]]))
-for coord in range(len(cart_array[1])-1):
-      g_coord_vector = (np.matmul(transform_matrix, np.array([cart_array[0,coord], cart_array[1,coord], cart_array[2,coord]])))
-      cart_g_HP.append(g_coord_vector)
-print(np.array(cart_g_HP))
-      
-
+for coord in range(len(cart_array[1])):
+      cart_g_HP[coord] = (np.matmul(transform_matrix, np.array([cart_array[0,coord], cart_array[1,coord], cart_array[2,coord]])))
+      x_g_HP.append(cart_g_HP[coord, 0])
+      y_g_HP.append(cart_g_HP[coord, 1])
+      z_g_HP.append(cart_g_HP[coord, 2])
 
 
 
@@ -223,7 +222,7 @@ plt.show()
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 ax.scatter(0, 0, color='yellow', label='Sun', s=100)
-scatter = ax.scatter(x_HPi, y_HPi, z_HPi, c=r_gc_HPi, cmap='viridis')
+scatter = ax.scatter(x_g_HP, y_g_HP, z_g_HP, c=r_gc_HPi, cmap='viridis')
 ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
@@ -236,7 +235,7 @@ plt.show()
 #%%
 plt.figure()
 plt.title("Position with v_rot (XY)")
-plt.scatter(x=x_HPi, y=y_HPi, c=v_r_HPiii, s = 5)
+plt.scatter(x=x_g_HP, y=y_g_HP, c=v_r_HPiii, s = 5)
 plt.colorbar(orientation = "vertical", label = "v_rot")
 
 plt.xlabel("X")
@@ -247,7 +246,7 @@ plt.show()
 #%%
 plt.figure()
 plt.title("Position with v_rot (XZ)")
-plt.scatter(x=x_HPi, y=z_HPi, c=v_r_HPiii, s = 5)
+plt.scatter(x=x_g_HP, y=z_g_HP, c=v_r_HPiii, s = 5)
 plt.colorbar(orientation = "vertical", label = "v_rot")
 plt.xlabel("X")
 plt.ylabel("z")
@@ -257,7 +256,7 @@ plt.show()
 #%%
 plt.figure()
 plt.title("Position with v_rot (YZ)")
-plt.scatter(x=y_HPi, y=z_HPi, c=v_r_HPiii, s = 5)
+plt.scatter(x=y_g_HP, y=z_g_HP, c=v_r_HPiii, s = 5)
 plt.colorbar(orientation = "vertical", label = "v_rot")
 plt.xlabel("y")
 plt.ylabel("z")
