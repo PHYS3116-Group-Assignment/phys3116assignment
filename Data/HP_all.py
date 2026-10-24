@@ -403,3 +403,30 @@ plt.show()
 
 
 # %%
+plt.figure()
+plt.title("mass vs concentration")
+plt.scatter(y = c_HPiii, x = np.log10(mass_HP), c = v_r_HPiii, s = 25)
+plt.colorbar(orientation = "vertical", label = "rotational velocity")
+plt.xlabel("concentration")
+plt.ylabel("Mass")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+
+
+
+# %%
+
+
+
+plt.figure()
+plt.title("Magnitude and rotational velocity")
+plt.scatter(x = v_r_HPiii, y = mass_HP,s = 25)
+plt.xlabel("rotational velocity")
+plt.ylabel("Mass")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# %%

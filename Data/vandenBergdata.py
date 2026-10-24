@@ -188,4 +188,19 @@ plt.ylabel("Velocity")
 plt.legend()
 plt.grid(True)
 plt.show()
+
+# %%
+plt.figure()
+plt.title("Radius vs Color")
+plt.scatter(R_G_vb, HBtype_vb, c = mass_vb, cmap = "magma", label='Data')
+plt.colorbar(orientation = "vertical", label = "mass")
+
+plt.xlabel("Radius")
+plt.ylabel("hb type")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
 # %%
