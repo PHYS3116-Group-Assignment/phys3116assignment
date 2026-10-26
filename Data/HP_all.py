@@ -173,7 +173,7 @@ for coord in range(len(cart_array[1])):
       y_g_HP.append(cart_g_HP[coord, 1])
       z_g_HP.append(cart_g_HP[coord, 2])
 
-
+#%%
 from astropy import units as u
 import astropy.coordinates as coord
 
