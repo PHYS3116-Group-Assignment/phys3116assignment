@@ -219,6 +219,9 @@ ax.set_box_aspect((1,1,1), zoom=0.82)
 ax.set_xlabel('X Label')
 ax.set_ylabel('Y Label')
 ax.set_zlabel('Z Label')
+# plt.zlim(-20,20)
+plt.xlim(-35,35)
+plt.ylim(-40,40)
 ax.set_title('3D Scatter Plot of Globular Clusters')
 fig.colorbar(scatter, ax=ax, label='v_rot')
 plt.show()
@@ -227,17 +230,15 @@ plt.show()
 #%%
 plt.figure()
 plt.title("Position with v_rot (XY)")
-plt.scatter(x=x_g_HP, y=y_g_HP, c = magnitude_HP, s = 5)
-plt.colorbar(orientation = "vertical", label = "magnitude")
-plt.xlabel("X")
-plt.ylabel("Y")
-plt.xlim(-20,20)
-plt.ylim(-10,15)
+plt.scatter(x=magnitude_HP, y=sig_v_HPiii, s = 5)
+# plt.colorbar(orientation = "vertical", label = "v_r")
+plt.xlabel("magnitude")
+plt.ylabel("v dispersion")
 plt.legend()
 plt.grid(True)
 plt.show()
 
-
+#%%
 plt.figure()
 plt.title("Position with v_rot (XY)")
 plt.scatter(x=x_g_HP, y=y_g_HP, c = z_g_HP, s = 5)
@@ -418,8 +419,6 @@ plt.show()
 
 # %%
 
-
-
 plt.figure()
 plt.title("Magnitude and rotational velocity")
 plt.scatter(x = v_r_HPiii, y = mass_HP,s = 25)
@@ -428,5 +427,18 @@ plt.ylabel("Mass")
 plt.grid(True)
 plt.tight_layout()
 plt.show()
+
+# %%
+
+
+plt.figure()
+plt.title("MAgnitude and core relaxation time")
+plt.scatter(x = magnitude_HP, y = vgsr,s = 25)
+plt.xlabel("magnitude")
+plt.ylabel("v_gsr")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
 
 # %%
